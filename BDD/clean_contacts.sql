@@ -50,6 +50,7 @@ CREATE TABLE `contacto` (
   `correo` varchar(150) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `años_cliente` int(11) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `estado` varchar(15) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `direccion` varchar(150) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `nombre_empresa` varchar(150) COLLATE utf8_spanish2_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 

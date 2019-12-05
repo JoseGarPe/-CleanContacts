@@ -1,27 +1,33 @@
 <?php 
 require_once "config/conexion.php";
-class Categoria extends conexion
+class Servicio extends conexion
 {
-private $id_categoria;
+private $id_servicio;
 private $nombre;
 private $descripcion;
+private $precio;
+private $id_categoria;
+private $estado;
 
 public function __construct()
 {
 	parent::__construct(); //Llamada al constructor de la clase padre conexion
 
-        $this->id_categoria= "";
+        $this->id_servicio= "";
         $this->nombre = "";
         $this->descripcion = "";
+        $this->precio = "";
+        $this->id_categoria = "";
+        $this->estado = "";
 
 }
 
- 	public function getId_categoria() {
-        return $this->id_categoria;
+ 	public function getId_servicio() {
+        return $this->id_servicio;
     }
 
-    public function setId_categoria($id) {
-        $this->id_categoria = $id;
+    public function setId_servicio($id) {
+        $this->id_servicio = $id;
     }
     
     public function getNombre() {
@@ -38,11 +44,32 @@ public function __construct()
 
     public function setDescripcion($descripcion) {
         $this->descripcion = $descripcion;
+    }  
+      public function getPrecio() {
+        return $this->precio;
     }
+
+    public function setPrecio($precio) {
+        $this->precio = $precio;
+    }  
+      public function getId_categoria() {
+        return $this->id_categoria;
+    }
+
+    public function setId_categoria($id_categoria) {
+        $this->id_categoria = $id_categoria;
+    } 
+      public function getEstado() {
+        return $this->estado;
+    }
+
+    public function setEstado($estado) {
+        $this->estado = $estado;
+    } 
 
 public function save()
     {
-    	$query="INSERT INTO `categoria`(`id_categoria`, `nombre`, `descripcion`) VALUES(NULL,'".$this->nombre."','".$this->descripcion."');";
+    	$query="INSERT INTO `servicio`(`id_servicio`, `nombre`, `descripcion`,`precio`,`id_categoria`,`estado`) VALUES(NULL,'".$this->nombre."','".$this->descripcion."','".$this->precio."','".$this->id_categoria."','".$this->estado."');";
     	$save=$this->db->query($query);
     	if ($save==true) {
             return true;
@@ -53,7 +80,7 @@ public function save()
 
      public function update()
     {
-        $query="UPDATE categoria SET nombre='".$this->nombre."', descripcion='".$this->descripcion."' WHERE id_categoria='".$this->id_categoria."'";
+        $query="UPDATE servicio SET nombre='".$this->nombre."', descripcion='".$this->descripcion."',precio='".$this->precio."',id_categoria='".$this->id_categoria."' WHERE id_servicio='".$this->id_servicio."'";
         $update=$this->db->query($query);
         if ($update==true) {
             return true;
@@ -63,7 +90,7 @@ public function save()
     }
     public function delete()
     {
-       $query="DELETE FROM categoria WHERE id_categoria='".$this->id_categoria."'"; 
+       $query="DELETE FROM servicio WHERE id_servicio='".$this->id_servicio."'"; 
        $delete=$this->db->query($query);
        if ($delete == true) {
         return true;
@@ -74,14 +101,14 @@ public function save()
     }
      public function selectALL()
     {
-        $query="SELECT * FROM categoria";
+        $query="SELECT * FROM servicio";
         $selectall=$this->db->query($query);
         $ListTipoUsuario=$selectall->fetch_all(MYSQLI_ASSOC);
         return $ListTipoUsuario;
     }
      public function selectOne($codigo)
     {
-        $query="SELECT * FROM categoria WHERE id_categoria='".$codigo."'";
+        $query="SELECT * FROM servicio WHERE id_servicio='".$codigo."'";
         $selectall=$this->db->query($query);
        $ListTipoUsuario=$selectall->fetch_all(MYSQLI_ASSOC);
         return $ListTipoUsuario;

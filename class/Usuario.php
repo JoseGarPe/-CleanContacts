@@ -63,7 +63,7 @@ class Usuario extends Conexion
         return $this->correo;
     }
 
-    public function sePass($pass) {
+    public function setPass($pass) {
         $this->pass = $pass;
     }
     public function getId_tipo_usuario() {
@@ -162,13 +162,6 @@ class Usuario extends Conexion
         $ListUsuario=$selectall->fetch_all(MYSQLI_ASSOC);
         return $ListUsuario;
     }
-    public function selectDTecnicos($codigo)
-    {
-        $query="SELECT * FROM usuario WHERE id_tipo_usuario!='".$codigo."'";
-        $selectall=$this->db->query($query);
-        $ListUsuario=$selectall->fetch_all(MYSQLI_ASSOC);
-        return $ListUsuario;
-    }
     
       public function selectAllTipUsuario()
     {
@@ -177,48 +170,6 @@ class Usuario extends Conexion
         $ListTC=$selectall->fetch_all(MYSQLI_ASSOC);
         return $ListTC;
     }
-     public function selectOneTC($codigo)
-    {
-        $query="SELECT * FROM tipo_usuario WHERE id_tipo_usuario='".$codigo."'";
-        $selectall=$this->db->query($query);
-        $ListUsuario=$selectall->fetch_all(MYSQLI_ASSOC);
-      return $ListUsuario;
-}
- public function selectOneDTC($codigo)
-    {
-        $query="SELECT * FROM tipo_usuario WHERE id_tipo_usuario!='".$codigo."'";
-        $selectall=$this->db->query($query);
-        $ListUsuario=$selectall->fetch_all(MYSQLI_ASSOC);
-      return $ListUsuario;
-}
-public function selectOneTU($codigo)
-    {
-        $query="SELECT tu.id_tipo_usuario FROM usuario u INNER JOIN tipo_usuario tu ON tu.id_tipo_usuario = u.id_tipo_usuario WHERE u.id_usuario ='".$codigo."'";
-        $selectall=$this->db->query($query);
-        $ListUsuario=$selectall->fetch_all(MYSQLI_ASSOC);
-      return $ListUsuario;
-}
-public function selectTU($codigo)
-    {
-        $query="SELECT id_tipo_usuario, nombre FROM tipo_usuario  WHERE id_tipo_usuario ='".$codigo."'";
-        $selectall=$this->db->query($query);
-        $ListUsuario=$selectall->fetch_all(MYSQLI_ASSOC);
-      return $ListUsuario;
-}
-public function selectDTU($codigo)
-    {
-        $query="SELECT id_tipo_usuario, nombre FROM tipo_usuario  WHERE id_tipo_usuario !='".$codigo."'";
-        $selectall=$this->db->query($query);
-        $ListUsuario=$selectall->fetch_all(MYSQLI_ASSOC);
-      return $ListUsuario;
-}
-public function selectOneDTU($codigo)
-    {
-        $query="SELECT tu.id_tipo_usuario, tu.nombre FROM usuario u INNER JOIN tipo_usuario tu ON tu.id_tipo_usuario = u.id_tipo_usuario WHERE u.id_usuario !='".$codigo."'";
-        $selectall=$this->db->query($query);
-        $ListUsuario=$selectall->fetch_all(MYSQLI_ASSOC);
-      return $ListUsuario;
-}
     public function login(){
 
         $pass = hash("sha256", $this->pass);
@@ -301,13 +252,6 @@ public function selectOneDTU($codigo)
             return "Incorrecto";
         }
 
-    }
-        public function selectALLJ1($codigo)
-    {
-        $query="SELECT * FROM usuario WHERE id_tipo_usuario='".$codigo."'";
-        $selectall=$this->db->query($query);
-        $ListUsuarios=$selectall->fetch_all(MYSQLI_ASSOC);
-        return $ListUsuarios;
     }
 
     public function updatePass1($nuevacontra,$usuario)
