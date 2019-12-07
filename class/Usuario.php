@@ -91,8 +91,8 @@ class Usuario extends Conexion
      public function save()
     {
         $password = hash('sha256', $this->pass);
-    	$query="INSERT INTO usuario (id_usuario,nombre,apellido,correo,pass,id_tipo_usuario,telefono)
-    			values(NULL,'".$this->nombre."','".$this->apellido."','".$this->correo."','".$password."','".$this->id_tipo_usuario."','".$this->telefono."');";
+    	$query="INSERT INTO usuario (id_usuario,nombre,apellido,correo,pass,id_tipo_usuario,telefono,estado)
+    			values(NULL,'".$this->nombre."','".$this->apellido."','".$this->correo."','".$password."','".$this->id_tipo_usuario."','".$this->telefono."','".$this->estado."');";
     	$save=$this->db->query($query);
     	if ($save==true) {
             return true;
@@ -136,7 +136,7 @@ class Usuario extends Conexion
     }
     public function selectALL()
     {
-        $query="SELECT * FROM usuario";
+        $query="SELECT u.*, tu.nombre as tipo_usuario FROM usuario u, tipo_usuario tu WHERE u.id_tipo_usuario = tu.id_tipo_usuario";
         $selectall=$this->db->query($query);
         $ListUsuarios=$selectall->fetch_all(MYSQLI_ASSOC);
         return $ListUsuarios;
