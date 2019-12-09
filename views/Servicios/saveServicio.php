@@ -1,7 +1,7 @@
 <form method="post" id="insert_form" action="../controllers/UsuarioController.php?accion=guardar">  
                         
                         <div class="form-group">
-                          <label>Nombre Categoria</label>  
+                          <label>Nombre Servicio</label>  
                           <div class="input-group">
                             <div class="input-group-prepend bg-primary border-primary">
                               <span class="input-group-text bg-transparent">
