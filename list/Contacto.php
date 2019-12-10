@@ -1,3 +1,21 @@
+<?php 
+  if (isset($_GET['id_empresa'])) {
+    $id_empresa = $_GET['id_empresa'];
+
+require_once "../class/Empresa.php";
+       
+               $Empresa = new Empresa();
+                         $dato = $Empresa->selectOne($id_empresa);
+                  foreach ($dato as $key) {
+                  $nombre_empresa=$key['nombre'];
+                  $direccion_empresa=$key['direccion'];
+                  $estado_empresa=$key['estado'];
+                  }
+
+  }else{
+    header('Location: Empresa.php?success=correcto');
+  }
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +28,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
-    <title>CleanSv::Categorias</title>
+    <title>CleanSv::Empresas</title>
     <!-- Bootstrap Core CSS -->
     <link href="../assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->   
@@ -63,7 +81,7 @@
                         </ol>
                     </div>
                     <div class="col-md-6 col-4 align-self-center">
-                         <input type="button" name="accion" value="Nuevo Categoria" id="accion" class="btn btn-success save_data"/> 
+                         <input type="button" name="accion" value="Nuevo Empresa" id="accion" class="btn btn-success save_data"/> 
                     </div>
                 </div>
                 <!-- ============================================================== -->
@@ -114,36 +132,142 @@
                 }
             }
              ?>
+             <div class="col-lg-4 col-xlg-3 col-md-5">
+                        <div class="card">
+                            <div class="card-block">
+                                <center class="m-t-30"> <img src="../assets/images/users/user.PNG" class="img-circle" width="150" />
+                                    <h4 class="card-title m-t-10"><?php echo $nombre_empresa; ?></h4>
+                                    <h6 class="card-subtitle"></h6>
+                                    <div class="row text-center justify-content-md-center">
+                                        <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-people"></i> <font class="font-medium">254</font></a></div>
+                                        <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-picture"></i> <font class="font-medium">54</font></a></div>
+                                    </div>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+                    <!-- Column -->
+                    <div class="col-lg-8 col-xlg-9 col-md-7">
+                        <div class="card">
+                            <div class="card-block">
+                                <form class="form-horizontal form-material">
+                                    <div class="form-group">
+                                        <label class="col-md-12">Direccion</label>
+                                        <div class="col-md-12">
+                                          <?php 
+                                          echo ' <input type="text" placeholder="Johnathan Doe" value="'.$direccion_empresa.'" class="form-control form-control-line">
+';
+                                           ?>
+                                         </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="example-email" class="col-md-12">Estado</label>
+                                        <div class="col-md-12">
+                                          <?php 
+                                          echo ' <input type="text" placeholder="johnathan@admin.com" value="'.$estado_empresa.'" class="form-control form-control-line" name="example-email" id="example-email">';
+                                           ?>
+                                      
+                                        </div>
+                                    </div>
+                                      <div class="row">
+                                             <div class="col-lg-8 col-md-offset-3"> </div>
+                                          <div class="col-md-4 col-md-offset-3">
+                                            <?php 
+                                            echo '<input type="button" name="accion" value="Nuevo Contacto" id="accion" id_empresa="'.$id_empresa.'" class="btn btn-success save_data_user"/> </div>';
+                                             ?>
+                                          </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-12">Contactos</label>
+                                        <div class="col-sm-12">
+                                        
+                                            
+                                            <table id="example3" class="table table-striped table-bordered">
+                                               <thead>
+                              <th>N°</th>      
+                              <th>Nombre</th>
+                              <th>Telefono</th>
+                              <th>Correo</th>
+                              <th>Opciones</th>
+                                               </thead>
+                                               <tbody>
+                    <?php 
+                        require_once "../class/Contacto.php";
+                         $contac = new Contacto();
+                         $ListUsua = $contac->selectALL($id_empresa);
+                        
+                           # code...
+                         
+                         foreach ((array)$ListUsua as $w) {
+                         echo '
+                          <tr>
+                           <td>'.$w['id_contacto'].'</td>
+                           <td>'.$w['nombre'].'</td>
+                           <td>'.$w['telefono'].'</td>
+                           <td>'.$w['correo'].'</td>
+                           <td>';
+                          
+                           echo'
+                                    
+                                    
+                                    <input type="button" name="edit" value="Editar" id="'.$w["id_contacto"].'" class="btn btn-warning edit_data" />
+                                     <input type="button" name="delete" value="Eliminar" id="'.$w["id_contacto"].'" class="btn btn-danger delete_data" />
+                           </td>
+                          </tr>
+                         ';
+                       }
+                     ?>
+            </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                     <!-- column -->
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-block">
-                                <h4 class="card-title">Categorias</h4>
+                                <h4 class="card-title">Empresas</h4>
                                 <h6 class="card-subtitle"></h6>
                                 <div class="table-responsive">
                                     <table id="example4" class="table table-striped table-bordered">
                                          <thead>
-                      <th>N°</th>                      <th>Categoria</th>
+                      <th>N°</th>      
+                      <th>Empresa</th>
+                      <th>Direccion</th>
+                      <th>estado</th>
                       <th>Opciones</th>
                   </thead>
                   <tbody>
                     <?php 
-                        require_once "../class/Categoria.php";
-                         $Categorias = new Categoria();
-                         $ListUsua = $Categorias->selectALL();
+                        require_once "../class/Empresa.php";
+                         $Empresas = new Empresa();
+                         $ListUsua = $Empresas->selectALL();
                         
                            # code...
                          
                          foreach ((array)$ListUsua as $row) {
                          echo '
                           <tr>
-                           <td>'.$row['id_categoria'].'</td>
+                           <td>'.$row['id_empresa'].'</td>
                            <td>'.$row['nombre'].'</td>
+                           <td>'.$row['direccion'].'</td>
+                           <td>'.$row['estado'].'</td>
                            <td>';
+                           if ($row['estado']=='Activo') {
+                            echo '
+                                     <input type="button" name="delete" value="Desactivar" id="'.$row["id_empresa"].'" estado="Inactivo" class="btn btn-secundary status_data" />';
+                          }else{
+                            echo '
+                                     <input type="button" name="delete" value="Activar" id="'.$row["id_empresa"].'" estado="Activo" class="btn btn-success status_data" />';
+                          }
                            echo'
-                                    <input type="button" name="view" value="Ver Detalle" id="'.$row["id_categoria"].'" class="btn btn-info view_data"/>  
-                                    <input type="button" name="edit" value="Editar" id="'.$row["id_categoria"].'" class="btn btn-warning edit_data" />
-                                     <input type="button" name="delete" value="Eliminar" id="'.$row["id_categoria"].'" class="btn btn-danger delete_data" />
+                                    
+                                    <a href="Contactos.php?id_empresa='.$row['id_empresa'].'" class="btn btn-info">Ver Mas detalles</a>
+                                    <input type="button" name="edit" value="Editar" id="'.$row["id_empresa"].'" class="btn btn-warning edit_data" />
+                                     <input type="button" name="delete" value="Eliminar" id="'.$row["id_empresa"].'" class="btn btn-danger delete_data" />
                            </td>
                           </tr>
                          ';
@@ -240,7 +364,7 @@
            if(employee_id != '')  
            {  
                 $.ajax({  
-                     url:"../views/Categoria/saveCategoria.php",  
+                     url:"../views/Empresa/saveEmpresa.php",  
                      method:"POST",  
                      data:{employee_id:employee_id},  
                      success:function(data){  
@@ -255,7 +379,7 @@
            if(employee_id != '')  
            {  
                 $.ajax({  
-                     url:"../views/Categoria/deleteCategoria.php",  
+                     url:"../views/Empresa/deleleEmpresa.php",  
                      method:"POST",  
                      data:{employee_id:employee_id},  
                      success:function(data){  
@@ -270,7 +394,7 @@
            if(employee_id != '')  
            {  
                 $.ajax({  
-                     url:"../views/Categoria/updateCategoria.php",  
+                     url:"../views/Empresa/updateEmpresa.php",  
                      method:"POST",  
                      data:{employee_id:employee_id},  
                      success:function(data){  
@@ -286,7 +410,7 @@
            if(employee_id != '')  
            {  
                 $.ajax({  
-                     url:"../views/Categoria/statuCategoria.php",  
+                     url:"../views/Empresa/statuEmpresa.php",  
                      method:"POST",  
                      data:{employee_id:employee_id,employee_status:employee_status},  
                      success:function(data){  
@@ -296,6 +420,24 @@
                 });  
            }   
       });
+
+
+        $(document).on('click', '.save_data_user', function(){  
+          var employee_id = $(this).attr("id");  
+          var employee_empresa = $(this).attr("id_empresa");  
+           if(employee_id != '')  
+           {  
+                $.ajax({  
+                     url:"../views/Contacto/saveContacto.php",  
+                     method:"POST",  
+                     data:{employee_id:employee_id,employee_empresa:employee_empresa},  
+                     success:function(data){  
+                          $('#employee_forms3').html(data);  
+                          $('#dataModal3').modal('show');  
+                     }  
+                });  
+           }   
+      }); 
 });  
 
 </script>

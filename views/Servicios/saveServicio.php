@@ -1,4 +1,4 @@
-<form method="post" id="insert_form" action="../controllers/UsuarioController.php?accion=guardar">  
+<form method="post" id="insert_form" action="../controllers/ServicioController.php?accion=guardar">  
                         
                         <div class="form-group">
                           <label>Nombre Servicio</label>  
@@ -19,7 +19,7 @@
                                 <i class="mdi mdi mdi-card-text-outline text-white"></i>
                               </span>
                             </div>
-                            <textarea name="descripcion" id="descripcion"></textarea>
+                            <textarea name="descripcion" id="descripcion" class="form-control"></textarea>
                           </div>
                         </div> 
                       <br>

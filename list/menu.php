@@ -74,19 +74,19 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                         <li>
-                            <a href="index.html" class="waves-effect"><i class="fa fa-clock-o m-r-10" aria-hidden="true"></i>Inicio</a>
+                            <a href="../index.php" class="waves-effect"><i class="fa fa-clock-o m-r-10" aria-hidden="true"></i>Inicio</a>
                         </li>
                         <li>
-                            <a href="pages-profile.html" class="waves-effect"><i class="fa fa-user m-r-10" aria-hidden="true"></i>Profile</a>
+                            <a href="#" class="waves-effect"><i class="fa fa-user m-r-10" aria-hidden="true"></i>Profile</a>
                         </li>
                         <li>
-                            <a href="table-basic.html" class="waves-effect"><i class="fa fa-table m-r-10" aria-hidden="true"></i>Usuarios</a>
+                            <a href="Empresa.php" class="waves-effect"><i class="fa fa-table m-r-10" aria-hidden="true"></i>Contactos</a>
                         </li>
                         <li>
-                            <a href="icon-fontawesome.html" class="waves-effect"><i class="fa fa-font m-r-10" aria-hidden="true"></i>Servicios</a>
+                            <a href="Servicio.php" class="waves-effect"><i class="fa fa-font m-r-10" aria-hidden="true"></i>Servicios</a>
                         </li>
                         <li>
-                            <a href="map-google.html" class="waves-effect"><i class="fa fa-globe m-r-10" aria-hidden="true"></i>Contactos</a>
+                            <a href="Usuarios.php" class="waves-effect"><i class="fa fa-globe m-r-10" aria-hidden="true"></i>Usuarios</a>
                         </li>
                        <!-- <li>
                             <a href="pages-blank.html" class="waves-effect"><i class="fa fa-columns m-r-10" aria-hidden="true"></i>Blank Page</a>

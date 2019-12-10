@@ -1,5 +1,5 @@
 <?php 
-require_once "../class/Usuario.php";
+require_once "../class/Categoria.php";
 $accion=$_GET['accion'];
 
 if ($accion=="modificar") {

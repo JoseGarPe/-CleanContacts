@@ -1,17 +1,14 @@
 <?php 
 
 require_once "config/conexion.php";
-class Csontacto extends Conexion
+class Contacto extends Conexion
 {
  private $id_contacto;
  private $nombre;
  private $apellido;
  private $correo;
- private $anio_cliente;
- private $direccion;
- private $estado;
  private $telefono;
- private $nombre_empresa;
+ private $id_empresa;
 
  public function __construct()
 	{
@@ -21,11 +18,8 @@ class Csontacto extends Conexion
         $this->nombre = "";
         $this->apellido = "";
         $this->correo="";
-        $this->anio_cliente="";
-        $this->direccion="";
-        $this->estado="";
         $this->telefono="";
-        $this->nombre_empresa="";
+        $this->id_empresa="";
     }
 
 
@@ -61,27 +55,9 @@ class Csontacto extends Conexion
     public function setCorreo($correo) {
         $this->correo = $correo;
     }
-    public function getanio_cliente() {
-        return $this->correo;
-    }
-
-    public function setAnio_cliente($anio_cliente) {
-        $this->anio_cliente = $anio_cliente;
-    }
-    public function getDireccion() {
-        return $this->direccion;
-    }
-
-    public function setdireccion($direccion) {
-        $this->direccion = $direccion;
-    }
-    public function getEstado() {
-        return $this->estado;
-    }
-
-    public function setEstado($estado) {
-        $this->estado = $estado;
-    }
+ 
+    
+    
         public function getTelefono() {
         return $this->telefono;
     }
@@ -89,19 +65,21 @@ class Csontacto extends Conexion
     public function setTelefono($telefono) {
         $this->telefono = $telefono;
     }
-    public function getNombre_empresa() {
-        return $this->nombre_empresa;
+
+    public function getId_empresa() {
+        return $this->id_empresa;
     }
 
-    public function setNombre_empresa($nombre_empresa) {
-        $this->nombre_empresa = $nombre_empresa;
+    public function setId_empresa($id_empresa) {
+        $this->id_empresa = $id_empresa;
     }
+   
  //---------------------Funciones----------------------------//
      public function save()
     {
         $anio_clienteword = hash('sha256', $this->anio_cliente);
-    	$query="INSERT INTO contacto (id_contacto,nombre,apellido,correo,anio_cliente,direccion,telefono,nombre_empresa)
-    			values(NULL,'".$this->nombre."','".$this->apellido."','".$this->correo."','".$anio_clienteword."','".$this->direccion."','".$this->telefono."','".$this->nombre_empresa."');";
+    	$query="INSERT INTO contacto (id_contacto,nombre,apellido,correo,telefono,id_empresa)
+    			values(NULL,'".$this->nombre."','".$this->apellido."','".$this->correo."','".$this->telefono."','".$this->id_empresa."');";
     	$save=$this->db->query($query);
     	if ($save==true) {
             return true;
@@ -112,7 +90,7 @@ class Csontacto extends Conexion
     }
      public function update()
     {
-        $query="UPDATE contacto SET nombre='".$this->nombre."',apellido='".$this->apellido."',correo='".$this->correo."',direccion='".$this->direccion."', telefono='".$this->telefono."',nombre_empresa='".$this->nombre_empresa."' WHERE id_contacto='".$this->id_contacto."'";
+        $query="UPDATE contacto SET nombre='".$this->nombre."',apellido='".$this->apellido."',correo='".$this->correo."', telefono='".$this->telefono."',id_empresa='".$this->id_empresa."' WHERE id_contacto='".$this->id_contacto."'";
         $update=$this->db->query($query);
         if ($update==true) {
             return true;
@@ -132,9 +110,9 @@ class Csontacto extends Conexion
        }
 
     }
-    public function selectALL()
+    public function selectALL($empresa)
     {
-        $query="SELECT * FROM contacto";
+        $query="SELECT * FROM contacto WHERE id_empresa='".$empresa."'";
         $selectall=$this->db->query($query);
         $Listcontactos=$selectall->fetch_all(MYSQLI_ASSOC);
         return $Listcontactos;

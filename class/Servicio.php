@@ -101,7 +101,7 @@ public function save()
     }
      public function selectALL()
     {
-        $query="SELECT * FROM servicio";
+        $query="SELECT s.*, c.nombre as categoria FROM servicio s INNER JOIN categoria c on c.id_categoria = s.id_categoria";
         $selectall=$this->db->query($query);
         $ListTipoUsuario=$selectall->fetch_all(MYSQLI_ASSOC);
         return $ListTipoUsuario;

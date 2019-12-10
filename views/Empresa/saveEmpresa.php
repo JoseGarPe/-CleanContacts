@@ -1,7 +1,7 @@
-<form method="post" id="insert_form" action="../controllers/CategoriaController.php?accion=guardar">  
+<form method="post" id="insert_form" action="../controllers/EmpresaController.php?accion=guardar">  
                         
                         <div class="form-group">
-                          <label>Nombre Categoria</label>  
+                          <label>Nombre Empresa</label>  
                           <div class="input-group">
                             <div class="input-group-prepend bg-primary border-primary">
                               <span class="input-group-text bg-transparent">
@@ -12,14 +12,14 @@
                           </div>
                         </div>  
                         <div class="form-group">
-                          <label>Descripcion</label>  
+                          <label>Direccion</label>  
                           <div class="input-group">
                             <div class="input-group-prepend bg-primary border-primary">
                               <span class="input-group-text bg-transparent">
                                 <i class="mdi mdi mdi-card-text-outline text-white"></i>
                               </span>
                             </div>
-                            <textarea name="descripcion" id="descripcion" class="form-control"></textarea>
+                            <textarea name="direccion" id="direccion" class="form-control"></textarea>
                           </div>
                         </div> 
                       <br>

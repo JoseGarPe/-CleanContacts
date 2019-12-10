@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
-    <title>CleanSv::Categorias</title>
+    <title>CleanSv::Empresas</title>
     <!-- Bootstrap Core CSS -->
     <link href="../assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->   
@@ -63,7 +63,7 @@
                         </ol>
                     </div>
                     <div class="col-md-6 col-4 align-self-center">
-                         <input type="button" name="accion" value="Nuevo Categoria" id="accion" class="btn btn-success save_data"/> 
+                         <input type="button" name="accion" value="Nuevo Empresa" id="accion" class="btn btn-success save_data"/> 
                     </div>
                 </div>
                 <!-- ============================================================== -->
@@ -118,32 +118,45 @@
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-block">
-                                <h4 class="card-title">Categorias</h4>
+                                <h4 class="card-title">Empresas</h4>
                                 <h6 class="card-subtitle"></h6>
                                 <div class="table-responsive">
                                     <table id="example4" class="table table-striped table-bordered">
                                          <thead>
-                      <th>N°</th>                      <th>Categoria</th>
+                      <th>N°</th>      
+                      <th>Empresa</th>
+                      <th>Direccion</th>
+                      <th>estado</th>
                       <th>Opciones</th>
                   </thead>
                   <tbody>
                     <?php 
-                        require_once "../class/Categoria.php";
-                         $Categorias = new Categoria();
-                         $ListUsua = $Categorias->selectALL();
+                        require_once "../class/Empresa.php";
+                         $Empresas = new Empresa();
+                         $ListUsua = $Empresas->selectALL();
                         
                            # code...
                          
                          foreach ((array)$ListUsua as $row) {
                          echo '
                           <tr>
-                           <td>'.$row['id_categoria'].'</td>
+                           <td>'.$row['id_empresa'].'</td>
                            <td>'.$row['nombre'].'</td>
+                           <td>'.$row['direccion'].'</td>
+                           <td>'.$row['estado'].'</td>
                            <td>';
+                           if ($row['estado']=='Activo') {
+                            echo '
+                                     <input type="button" name="delete" value="Desactivar" id="'.$row["id_empresa"].'" estado="Inactivo" class="btn btn-secundary status_data" />';
+                          }else{
+                            echo '
+                                     <input type="button" name="delete" value="Activar" id="'.$row["id_empresa"].'" estado="Activo" class="btn btn-success status_data" />';
+                          }
                            echo'
-                                    <input type="button" name="view" value="Ver Detalle" id="'.$row["id_categoria"].'" class="btn btn-info view_data"/>  
-                                    <input type="button" name="edit" value="Editar" id="'.$row["id_categoria"].'" class="btn btn-warning edit_data" />
-                                     <input type="button" name="delete" value="Eliminar" id="'.$row["id_categoria"].'" class="btn btn-danger delete_data" />
+                                    
+                                    <a href="Contacto.php?id_empresa='.$row['id_empresa'].'" class="btn btn-info">Ver Mas detalles</a>
+                                    <input type="button" name="edit" value="Editar" id="'.$row["id_empresa"].'" class="btn btn-warning edit_data" />
+                                     <input type="button" name="delete" value="Eliminar" id="'.$row["id_empresa"].'" class="btn btn-danger delete_data" />
                            </td>
                           </tr>
                          ';
@@ -240,7 +253,7 @@
            if(employee_id != '')  
            {  
                 $.ajax({  
-                     url:"../views/Categoria/saveCategoria.php",  
+                     url:"../views/Empresa/saveEmpresa.php",  
                      method:"POST",  
                      data:{employee_id:employee_id},  
                      success:function(data){  
@@ -255,7 +268,7 @@
            if(employee_id != '')  
            {  
                 $.ajax({  
-                     url:"../views/Categoria/deleteCategoria.php",  
+                     url:"../views/Empresa/deleleEmpresa.php",  
                      method:"POST",  
                      data:{employee_id:employee_id},  
                      success:function(data){  
@@ -270,7 +283,7 @@
            if(employee_id != '')  
            {  
                 $.ajax({  
-                     url:"../views/Categoria/updateCategoria.php",  
+                     url:"../views/Empresa/updateEmpresa.php",  
                      method:"POST",  
                      data:{employee_id:employee_id},  
                      success:function(data){  
@@ -286,7 +299,7 @@
            if(employee_id != '')  
            {  
                 $.ajax({  
-                     url:"../views/Categoria/statuCategoria.php",  
+                     url:"../views/Empresa/statuEmpresa.php",  
                      method:"POST",  
                      data:{employee_id:employee_id,employee_status:employee_status},  
                      success:function(data){  
