@@ -1,11 +1,13 @@
-<form role="form" action="../controllers/UsuarioController.php?accion=modificar" method="post">
+<form role="form" action="../controllers/ContactoController.php?accion=modificar" method="post">
               <div class="box-body">
 <?php 
-require_once "../../class/Usuario.php";
+require_once "../../class/Contacto.php";
        
-              $codigo=$_POST["employee_id"];
-               $usuario = new Usuario();
-                         $dato = $usuario->selectOne($codigo);
+                         $codigo=$_POST["employee_id"];
+                        $id_empresa = $_POST['employee_empresa'];
+                        echo '<input type="hidden"  name="id_empresa" id="id_empresa" value="'.$id_empresa.'" class="form-control">';
+               $Contacto = new Contacto();
+                         $dato = $Contacto->selectOne($codigo);
                         
                       foreach ((array)$dato as $row) {
                         
@@ -59,29 +61,7 @@ require_once "../../class/Usuario.php";
                             <input type="text"  name="correo" id="correo" class="form-control" value="'.$row['correo'].'" placeholder="example@gmail.com" aria-label="example@gmail.com" aria-describedby="colored-addon2">
                           </div>
                         </div>
-                   <div class="form-group">
-                      <label for="exampleFormControlSelect3">Nivel Acceso</label>
-                       <div class="input-group-prepend bg-primary border-primary">
-                              <span class="input-group-text bg-transparent">
-                                <i class="mdi mdi mdi-folder-key text-white"></i>
-                              </span>
-                              <select class="form-control" id="exampleFormControlSelect3" name="id_nivel" aria-describedby="colored-addon2">
-                                <option value="0">SELECCIONE UNA OPCION</option>';
-                              
-                                 require_once "../../class/Tipo_Usuario.php";
-                         $NivelA = new Tipo_usuario();
-                         $ListUsua = $NivelA->selectALL();
-                         foreach ((array)$ListUsua as $r) {
-                          if ($row['id_tipo_usuario']==$r['id_tipo_usuario']) {
-                            
-                          echo '<option value="'.$r['id_tipo_usuario'].'" selected>'.$r['nombre'].'</option>';
-                          }else{
-                          echo '<option value="'.$r['id_tipo_usuario'].'">'.$r['nombre'].'</option>';
-                        }
-                         }
-                                
-                   echo'   </select>
-                       </div>
+                   
                     ';
 
                          }

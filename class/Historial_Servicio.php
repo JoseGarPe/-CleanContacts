@@ -3,9 +3,10 @@ require_once "config/conexion.php";
 class Historial_servicio extends conexion
 {
 private $id_historial_servicio;
-private $id_contacto;
+private $id_Empresa;
 private $id_servicio;
 private $fecha_realizado;
+private $comentario;
 private $n_factura;
 
 public function __construct()
@@ -13,8 +14,9 @@ public function __construct()
 	parent::__construct(); //Llamada al constructor de la clase padre conexion
 
         $this->id_historial_servicio= "";
-        $this->id_contacto = "";
+        $this->id_Empresa = "";
         $this->id_servicio = "";
+        $this->comentario = "";
         $this->fecha_realizado = "";
         $this->n_factura = "";
 
@@ -28,12 +30,12 @@ public function __construct()
         $this->id_historial_servicio = $id;
     }
     
-    public function getId_contacto() {
-        return $this->id_contacto;
+    public function getId_Empresa() {
+        return $this->id_Empresa;
     }
 
-    public function setId_contacto($id_contacto) {
-        $this->id_contacto = $id_contacto;
+    public function setId_Empresa($id_Empresa) {
+        $this->id_Empresa = $id_Empresa;
     }
 
     public function getId_servicio() {
@@ -58,9 +60,17 @@ public function __construct()
         $this->n_factura = $n_factura;
     } 
 
+      public function getComentario() {
+        return $this->comentario;
+    }
+
+    public function setComentario($comentario) {
+        $this->comentario = $comentario;
+    }
+
 public function save()
     {
-    	$query="INSERT INTO `historial_servicio`(`id_historial_servicio`, `id_contacto`, `id_servicio`,`fecha_realizado`,`n_factura`) VALUES(NULL,'".$this->id_contacto."','".$this->id_servicio."','".$this->fecha_realizado."','".$this->n_factura."');";
+    	$query="INSERT INTO `historial_servicio`(`id_historial_servicio`, `id_empresa`, `id_servicio`,`comentario`,`fecha_realizado`,`n_factura`) VALUES(NULL,'".$this->id_Empresa."','".$this->id_servicio."','".$this->comentario."','".$this->fecha_realizado."','".$this->n_factura."');";
     	$save=$this->db->query($query);
     	if ($save==true) {
             return true;
@@ -71,7 +81,7 @@ public function save()
 
      public function update()
     {
-        $query="UPDATE historial_servicio SET id_contacto='".$this->id_contacto."', id_servicio='".$this->id_servicio."',fecha_realizado='".$this->fecha_realizado."',n_factura='".$this->n_factura."' WHERE id_historial_servicio='".$this->id_historial_servicio."'";
+        $query="UPDATE historial_servicio SET id_empresa='".$this->id_Empresa."', id_servicio='".$this->id_servicio."',fecha_realizado='".$this->fecha_realizado."',n_factura='".$this->n_factura."', comentario ='".$this->id_servicio."' WHERE id_historial_servicio='".$this->id_historial_servicio."'";
         $update=$this->db->query($query);
         if ($update==true) {
             return true;
@@ -90,9 +100,9 @@ public function save()
        }
 
     }
-     public function selectALL()
+     public function selectALL($empresa)
     {
-        $query="SELECT * FROM historial_servicio";
+        $query="SELECT hs.* , s.nombre as servicioss FROM historial_servicio hs INNER JOIN servicio s on s.id_servicio=hs.id_servicio  WHERE hs.id_empresa ='".$empresa."'";
         $selectall=$this->db->query($query);
         $ListTipoUsuario=$selectall->fetch_all(MYSQLI_ASSOC);
         return $ListTipoUsuario;

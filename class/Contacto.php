@@ -90,7 +90,7 @@ class Contacto extends Conexion
     }
      public function update()
     {
-        $query="UPDATE contacto SET nombre='".$this->nombre."',apellido='".$this->apellido."',correo='".$this->correo."', telefono='".$this->telefono."',id_empresa='".$this->id_empresa."' WHERE id_contacto='".$this->id_contacto."'";
+        $query="UPDATE contacto SET nombre='".$this->nombre."',apellido='".$this->apellido."',correo='".$this->correo."', telefono='".$this->telefono."' WHERE id_contacto='".$this->id_contacto."'";
         $update=$this->db->query($query);
         if ($update==true) {
             return true;

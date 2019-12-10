@@ -90,8 +90,7 @@ require_once "../class/Empresa.php";
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
-                <div class="row">
-                     <?php 
+                         <?php 
             if (isset($_GET['success'])) {
                 
                 if ($_GET['success']=='correcto') {
@@ -132,6 +131,8 @@ require_once "../class/Empresa.php";
                 }
             }
              ?>
+                <div class="row">
+            
              <div class="col-lg-4 col-xlg-3 col-md-5">
                         <div class="card">
                             <div class="card-block">
@@ -176,7 +177,7 @@ require_once "../class/Empresa.php";
                                             <?php 
                                             echo '<input type="button" name="accion" value="Nuevo Contacto" id="accion" id_empresa="'.$id_empresa.'" class="btn btn-success save_data_user"/> </div>';
                                              ?>
-                                          </div>
+                                          </div></div>
                                     <div class="form-group">
                                         <label class="col-sm-12">Contactos</label>
                                         <div class="col-sm-12">
@@ -202,7 +203,7 @@ require_once "../class/Empresa.php";
                          echo '
                           <tr>
                            <td>'.$w['id_contacto'].'</td>
-                           <td>'.$w['nombre'].'</td>
+                           <td>'.$w['nombre'].' '.$w['apellido'].'</td>
                            <td>'.$w['telefono'].'</td>
                            <td>'.$w['correo'].'</td>
                            <td>';
@@ -210,8 +211,8 @@ require_once "../class/Empresa.php";
                            echo'
                                     
                                     
-                                    <input type="button" name="edit" value="Editar" id="'.$w["id_contacto"].'" class="btn btn-warning edit_data" />
-                                     <input type="button" name="delete" value="Eliminar" id="'.$w["id_contacto"].'" class="btn btn-danger delete_data" />
+                                    <input type="button" name="edit" value="Editar" id="'.$w["id_contacto"].'" id_empresa="'.$id_empresa.'" class="btn btn-warning edit_data_contact" />
+                                     <input type="button" name="delete" value="Eliminar" id="'.$w["id_contacto"].'" id_empresa="'.$id_empresa.'"  class="btn btn-danger delete_data_contact" />
                            </td>
                           </tr>
                          ';
@@ -226,48 +227,49 @@ require_once "../class/Empresa.php";
                         </div>
                     </div>
                     <!-- column -->
+                    
                     <div class="col-sm-12">
+
                         <div class="card">
                             <div class="card-block">
-                                <h4 class="card-title">Empresas</h4>
+                                <h4 class="card-title">Historial de servicios Contratados</h4>
                                 <h6 class="card-subtitle"></h6>
+                                  <div class="row">
+                                             <div class="col-lg-8 col-md-offset-3"> </div>
+                                          <div class="col-md-4 col-md-offset-3">
+                                            <?php 
+                                            echo '<input type="button" name="accion" value="Nuevo Registro" id="accion" id_empresa="'.$id_empresa.'" class="btn btn-success save_data"/> </div>';
+                                             ?>
+                                          </div></div>
                                 <div class="table-responsive">
                                     <table id="example4" class="table table-striped table-bordered">
                                          <thead>
                       <th>N°</th>      
-                      <th>Empresa</th>
-                      <th>Direccion</th>
-                      <th>estado</th>
+                      <th>Nombre Servicio</th>
+                      <th>Fecha Realizado</th>
+                      <th>No. Factura</th>
                       <th>Opciones</th>
                   </thead>
                   <tbody>
                     <?php 
-                        require_once "../class/Empresa.php";
-                         $Empresas = new Empresa();
-                         $ListUsua = $Empresas->selectALL();
+                        require_once "../class/Historial_Servicio.php";
+                         $servicio = new Historial_servicio();
+                         $ListServi = $servicio->selectALL($id_empresa);
                         
                            # code...
                          
-                         foreach ((array)$ListUsua as $row) {
+                         foreach ((array)$ListServi as $row) {
                          echo '
                           <tr>
-                           <td>'.$row['id_empresa'].'</td>
-                           <td>'.$row['nombre'].'</td>
-                           <td>'.$row['direccion'].'</td>
-                           <td>'.$row['estado'].'</td>
+                           <td>'.$row['id_historial_servicio'].'</td>
+                           <td>'.$row['servicioss'].'</td>
+                           <td>'.$row['fecha_realizado'].'</td>
+                           <td>'.$row['n_factura'].'</td>
                            <td>';
-                           if ($row['estado']=='Activo') {
-                            echo '
-                                     <input type="button" name="delete" value="Desactivar" id="'.$row["id_empresa"].'" estado="Inactivo" class="btn btn-secundary status_data" />';
-                          }else{
-                            echo '
-                                     <input type="button" name="delete" value="Activar" id="'.$row["id_empresa"].'" estado="Activo" class="btn btn-success status_data" />';
-                          }
+                         
                            echo'
-                                    
-                                    <a href="Contactos.php?id_empresa='.$row['id_empresa'].'" class="btn btn-info">Ver Mas detalles</a>
-                                    <input type="button" name="edit" value="Editar" id="'.$row["id_empresa"].'" class="btn btn-warning edit_data" />
-                                     <input type="button" name="delete" value="Eliminar" id="'.$row["id_empresa"].'" class="btn btn-danger delete_data" />
+                                    <input type="button" name="edit" value="Editar" id="'.$row["id_historial_servicio"].'" id_empresa="'.$id_empresa.'"  class="btn btn-warning edit_data" />
+                                     <input type="button" name="delete" value="Eliminar" id="'.$row["id_historial_servicio"].'" id_empresa="'.$id_empresa.'"  class="btn btn-danger delete_data" />
                            </td>
                           </tr>
                          ';
@@ -361,12 +363,13 @@ require_once "../class/Empresa.php";
    $(document).ready(function(){  
       $(document).on('click', '.save_data', function(){  
           var employee_id = $(this).attr("id");  
+          var employee_empresa = $(this).attr("id_empresa");  
            if(employee_id != '')  
            {  
                 $.ajax({  
-                     url:"../views/Empresa/saveEmpresa.php",  
+                     url:"../views/HistorialServicio/saveHistoriaServicio.php",  
                      method:"POST",  
-                     data:{employee_id:employee_id},  
+                     data:{employee_id:employee_id,employee_empresa:employee_empresa},  
                      success:function(data){  
                           $('#employee_forms3').html(data);  
                           $('#dataModal3').modal('show');  
@@ -376,12 +379,13 @@ require_once "../class/Empresa.php";
       }); 
       $(document).on('click', '.delete_data', function(){  
           var employee_id = $(this).attr("id");  
+          var employee_empresa = $(this).attr("id_empresa");  
            if(employee_id != '')  
            {  
                 $.ajax({  
-                     url:"../views/Empresa/deleleEmpresa.php",  
+                     url:"../views/HistorialServicio/deleteHistorialServicio.php",  
                      method:"POST",  
-                     data:{employee_id:employee_id},  
+                     data:{employee_id:employee_id,employee_empresa:employee_empresa},  
                      success:function(data){  
                           $('#employee_forms3').html(data);  
                           $('#dataModal3').modal('show');  
@@ -391,12 +395,13 @@ require_once "../class/Empresa.php";
       });
       $(document).on('click', '.edit_data', function(){  
           var employee_id = $(this).attr("id");  
+          var employee_empresa = $(this).attr("id_empresa");  
            if(employee_id != '')  
            {  
                 $.ajax({  
-                     url:"../views/Empresa/updateEmpresa.php",  
+                     url:"../views/HistorialServicio/updateHistorialServicio.php",  
                      method:"POST",  
-                     data:{employee_id:employee_id},  
+                     data:{employee_id:employee_id,employee_empresa:employee_empresa},  
                      success:function(data){  
                           $('#employee_forms3').html(data);  
                           $('#dataModal3').modal('show');  
@@ -410,7 +415,7 @@ require_once "../class/Empresa.php";
            if(employee_id != '')  
            {  
                 $.ajax({  
-                     url:"../views/Empresa/statuEmpresa.php",  
+                     url:"../views/HistorialServicio/statuHistorialServicio.php",  
                      method:"POST",  
                      data:{employee_id:employee_id,employee_status:employee_status},  
                      success:function(data){  
@@ -438,6 +443,42 @@ require_once "../class/Empresa.php";
                 });  
            }   
       }); 
+
+        $(document).on('click', '.edit_data_contact', function(){  
+          var employee_id = $(this).attr("id");  
+          var employee_empresa = $(this).attr("id_empresa");  
+           if(employee_id != '')  
+           {  
+                $.ajax({  
+                     url:"../views/Contacto/updateContacto.php",  
+                     method:"POST",  
+                     data:{employee_id:employee_id,employee_empresa:employee_empresa},  
+                     success:function(data){  
+                          $('#employee_forms3').html(data);  
+                          $('#dataModal3').modal('show');  
+                     }  
+                });  
+           }   
+      });
+
+
+        $(document).on('click', '.delete_data_contact', function(){  
+          var employee_id = $(this).attr("id");  
+          var employee_empresa = $(this).attr("id_empresa");  
+           if(employee_id != '')  
+           {  
+                $.ajax({  
+                     url:"../views/Contacto/deleteContacto.php",  
+                     method:"POST",  
+                     data:{employee_id:employee_id,employee_empresa:employee_empresa},  
+                     success:function(data){  
+                          $('#employee_forms3').html(data);  
+                          $('#dataModal3').modal('show');  
+                     }  
+                });  
+           }   
+      });
+
 });  
 
 </script>

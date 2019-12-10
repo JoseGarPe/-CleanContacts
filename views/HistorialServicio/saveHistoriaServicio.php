@@ -3,49 +3,57 @@
                         $id_empresa = $_POST['employee_empresa'];
                         echo '<input type="hidden"  name="id_empresa" id="id_empresa" value="'.$id_empresa.'" class="form-control">';
                          ?>
+                         <div class="form-group">
+                      <label for="exampleFormControlSelect3">Servicio</label>
+                       <div class="input-group-prepend bg-primary border-primary">
+                              <span class="input-group-text bg-transparent">
+                                <i class="mdi mdi mdi-folder-key text-white"></i>
+                              </span>
+                              <select class="form-control" id="exampleFormControlSelect3" name="id_servicio" aria-describedby="colored-addon2">
+                                <option value="0">SELECCIONE UNA OPCION</option>
+                                <?php 
+                                 require_once "../../class/Servicio.php";
+                         $NivelA = new Servicio();
+                         $ListUsua = $NivelA->selectALL();
+                         foreach ((array)$ListUsua as $row) {
+                          echo '<option value="'.$row['id_servicio'].'">'.$row['nombre'].'</option>';
+                         }
+                                 ?>
+                      </select>
+                       </div>
+                      
+                    </div> 
                         <div class="form-group">
-                          <label>Nombres COntacto</label>  
+                          <label>Fecha Realizado</label>  
                           <div class="input-group">
                             <div class="input-group-prepend bg-primary border-primary">
                               <span class="input-group-text bg-transparent">
                                 <i class="mdi mdi mdi-check-network-outline text-white"></i>
                               </span>
                             </div>
-                            <input type="text"  name="nombre" id="nombre" class="form-control" placeholder=" Nombres" aria-label="Nombres.." aria-describedby="colored-addon2">
-                          </div>
-                        </div>  
-                        <div class="form-group">
-                          <label>Apellidos COntacto</label>  
-                          <div class="input-group">
-                            <div class="input-group-prepend bg-primary border-primary">
-                              <span class="input-group-text bg-transparent">
-                                <i class="mdi mdi mdi-check-network-outline text-white"></i>
-                              </span>
-                            </div>
-                            <input type="text"  name="apellido" id="apellido" class="form-control" placeholder=" Nombres" aria-label="Nombres.." aria-describedby="colored-addon2">
+                            <input type="date"  name="fecha_realizado" id="fecha_realizado" class="form-control">
                           </div>
                         </div> 
                         <div class="form-group">
-                          <label>Correo</label>  
+                          <label>No. Factura</label>  
                           <div class="input-group">
                             <div class="input-group-prepend bg-primary border-primary">
                               <span class="input-group-text bg-transparent">
                                 <i class="mdi mdi mdi-card-text-outline text-white"></i>
                               </span>
                             </div>
-                            <input type="email"  name="correo" id="correo" class="form-control" placeholder=" Nombres" aria-label="Nombres.." aria-describedby="colored-addon2">
+                            <input type="text"  name="n_factura" id="n_factura" class="form-control" >
                           </div>
                         </div> 
-
                         <div class="form-group">
-                          <label>Telefono</label>  
+                          <label>Comentario</label>  
                           <div class="input-group">
                             <div class="input-group-prepend bg-primary border-primary">
                               <span class="input-group-text bg-transparent">
                                 <i class="mdi mdi mdi-card-text-outline text-white"></i>
                               </span>
                             </div>
-                            <input type="text"  name="telefono" id="telefono" class="form-control" placeholder=" Nombres" aria-label="Nombres.." aria-describedby="colored-addon2">
+                            <textarea name="comentario" class="form-control" ></textarea>
                           </div>
                         </div> 
 
